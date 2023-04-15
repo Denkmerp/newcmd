@@ -1,19 +1,118 @@
-local function onChatted(message)
-    local command = string.sub(message, 2)
-    if string.lower(command) == "!kill" then
-        player.Character:BreakJoints()
-    elseif string.lower(command) == "!reset" then
-        player.Character:BreakJoints()
-        player.Character.Humanoid.Health = 0
-    elseif string.lower(command) == "!respawn" then
-        player.Character:BreakJoints()
-        player:LoadCharacter()
-    elseif string.lower(command) == "!fly" then
-        player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Flying)
-    elseif string.lower(command) == "!Ocmds" then
-        game.Players.LocalPlayer:Kick("You are not owner.")
+local GUIWidth = 200
+local GUIHeight = 150
+local GUIPadding = 10
+local GUIBackgroundColor = Color3.fromRGB(255, 255, 255)
+local GUITextColor = Color3.fromRGB(0, 0, 0)
+local GUIBorderColor = Color3.fromRGB(0, 0, 0)
+local GUITitle = "Menu"
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local mouse = player:GetMouse()
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = player.PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, GUIWidth, 0, GUIHeight)
+Frame.BackgroundColor3 = GUIBackgroundColor
+Frame.BorderColor3 = GUIBorderColor
+Frame.Position = UDim2.new(0.5, -GUIWidth / 2, 0.5, -GUIHeight / 2)
+Frame.Draggable = true
+Frame.Active = true
+Frame.Parent = ScreenGui
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.BackgroundColor3 = GUIBackgroundColor
+Title.TextColor3 = GUITextColor
+Title.Text = GUITitle
+Title.Font = Enum.Font.SourceSansBold
+Title.FontSize = Enum.FontSize.Size18
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = Frame
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Size = UDim2.new(0, 20, 0, 20)
+CloseButton.Position = UDim2.new(1, -50, 0, 5)
+CloseButton.BackgroundColor3 = GUIBackgroundColor
+CloseButton.TextColor3 = GUITextColor
+CloseButton.Text = "X"
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.FontSize = Enum.FontSize.Size18
+CloseButton.Parent = Title
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Size = UDim2.new(0, 20, 0, 20)
+MinimizeButton.Position = UDim2.new(1, -25, 0, 5)
+MinimizeButton.BackgroundColor3 = GUIBackgroundColor
+MinimizeButton.TextColor3 = GUITextColor
+MinimizeButton.Text = "-"
+MinimizeButton.Font = Enum.Font.SourceSansBold
+MinimizeButton.FontSize = Enum.FontSize.Size18
+MinimizeButton.Parent = Title
+MinimizeButton.MouseButton1Click:Connect(function()
+    if Frame.Size == UDim2.new(0, GUIWidth, 0, GUIHeight) then
+        Frame.Size = UDim2.new(0, GUIWidth, 0, Title.Size.Y.Offset)
+    else
+        Frame.Size = UDim2.new(0, GUIWidth, 0, GUIHeight)
     end
+end)
+
+local FlyButton = Instance.new("TextButton")
+FlyButton.Size = UDim2.new(0, 80, 0, 30)
+FlyButton.Position = UDim2.new(0.5, -FlyButton.Size.X.Offset / 2, 0.3, 0)
+FlyButton.BackgroundColor3 = GUIBackgroundColor
+FlyButton.TextColor3 = GUITextColor
+FlyButton.Text = "Fly"
+FlyButton.Font = Enum.Font.SourceSansBold
+FlyButton.FontSize = Enum.FontSize.Size18
+FlyButton.Parent = Frame
+FlyButton.MouseButton1Click:Connect(function()
+game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(11)
+end)
+
+local KillButton = Instance.new("TextButton")
+KillButton.Size = UDim2.new(0, 80, 0, 30)
+KillButton.Position = UDim2.new(0.5, -KillButton.Size.X.Offset / 2, 0.5, 0)
+KillButton.BackgroundColor3 = GUIBackgroundColor
+KillButton.TextColor3 = GUITextColor
+KillButton.Text = "Kill"
+KillButton.Font = Enum.Font.SourceSansBold
+KillButton.FontSize = Enum.FontSize.Size18
+KillButton.Parent = Frame
+KillButton.MouseButton1Click:Connect(function()
+character:BreakJoints()
+end)
+
+local RejoinButton = Instance.new("TextButton")
+RejoinButton.Size = UDim2.new(0, 80, 0, 30)
+RejoinButton.Position = UDim2.new(0.5, -RejoinButton.Size.X.Offset / 2, 0.7, 0)
+RejoinButton.BackgroundColor3 = GUIBackgroundColor
+RejoinButton.TextColor3 = GUITextColor
+RejoinButton.Text = "Rejoin"
+RejoinButton.Font = Enum.Font.SourceSansBold
+RejoinButton.FontSize = Enum.FontSize.Size18
+RejoinButton.Parent = Frame
+RejoinButton.MouseButton1Click:Connect(function()
+game:GetService("TeleportService"):Teleport(game.PlaceId, player)
+end)
+
+local GUIVisible = true
+mouse.KeyDown:Connect(function(key)
+if key == "m" then
+GUIVisible = not GUIVisible
+ScreenGui.Enabled = GUIVisible
 end
+end)
+
+
+
+
 print("WORKING V1")
 print("Private mode is activated")
 print("Loading")
