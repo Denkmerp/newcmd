@@ -14,3 +14,18 @@ local function onChatted(message)
         game.Players.LocalPlayer:Kick("You are not owner.")
     end
 end
+print("WORKING V1")
+print("Private mode is activated")
+print("Loading")
+wait(4)
+print("Your command prefix is !")
+wait(5)
+print("You can change the prefix by copying this script and changing the ! commands with anything you want")
+wait(6)
+print("Note: This is still owned by the owner")
+wait(7)
+print("everything loaded. Script owned by FAGH")
+wait(8)
+print("close this console now")
+    end
+end)
