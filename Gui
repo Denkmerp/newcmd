@@ -107,6 +107,8 @@ mouse.KeyDown:Connect(function(key)
 if key == "m" then
 GUIVisible = not GUIVisible
 ScreenGui.Enabled = GUIVisible
+visble = true
+
 end
 end)
 
