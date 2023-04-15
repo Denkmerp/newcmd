@@ -1,3 +1,4 @@
+COREGUI = game:GetService("CoreGui")
 local GUIWidth = 200
 local GUIHeight = 150
 local GUIPadding = 10
@@ -107,7 +108,6 @@ mouse.KeyDown:Connect(function(key)
 if key == "m" then
 GUIVisible = not GUIVisible
 ScreenGui.Enabled = GUIVisible
-visble = true
 
 end
 end)
